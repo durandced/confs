@@ -605,7 +605,11 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(compilation-error ((t (:inherit font-lock-warning-face :foreground "dark orchid"))))
+ '(font-lock-comment-delimiter-face ((t (:inherit default :foreground "red4"))))
+ '(font-lock-comment-face ((t (:foreground "red4"))))
+ '(font-lock-function-name-face ((t (:foreground "DodgerBlue1"))))
+ '(region ((t (:background "DeepSkyBlue4")))))
 
 (prefer-coding-system 'utf-8)
 
@@ -617,3 +621,9 @@
 	   auto-mode-alist))
 
 (autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
+
+;Colors
+(require 'color-theme)
+;(load "~/.emacs.conf/color-theme-tango.el")
+;(load "~/.emacs.conf/tomorrow-night-paradise-theme.el")
+;(color-theme-tango))

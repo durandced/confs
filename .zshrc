@@ -99,7 +99,6 @@ alias sed='sed -E'
 alias fsed='sed -E -f'
 alias cp='cp -i'
 alias mv='mv -i'
-alias e='emacs -nw'
 alias g='gcc -W -Wall -ansi -Werror -pedantic -g -ggdb -o'
 alias mm='make clean;cls;make'
 alias mmm='mm debug'
@@ -112,6 +111,7 @@ alias cgzip='tar cvzf'
 alias xgzip='tar xvzf'
 alias du='du -h'
 alias df='df -h'
+alias d='df -h'
 alias 007='kill -9 -1'
 alias kl='kill -9 -1'
 alias s='cd ../'
@@ -146,6 +146,10 @@ xset b off &> /dev/null
 xset r rate 300 100 &> /dev/null
 umask 066
 
+function e
+{
+    emacs $1 &
+}
 
 ############################################################
 #                         PROMPT                           #
