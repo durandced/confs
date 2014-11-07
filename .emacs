@@ -1,4 +1,4 @@
-;;
+
 ;; emacs configuration
 ;;
 ;; Made by mefyl <mefyl@lrde.epita.fr>
@@ -424,6 +424,24 @@
                 'kill-word)                             ; kill word forward
 (global-set-key [(meta ~)] 'ruby-command)               ; run ruby command
 
+;; -nw keybindings
+(define-key function-key-map "\e[A" [up])
+(define-key function-key-map "\e[B" [down])
+(define-key function-key-map "\e[C" [right])
+(define-key function-key-map "\e[D" [left])
+(define-key function-key-map "\e[6~" [next])
+(define-key function-key-map "\e[5~" [prior])
+(define-key function-key-map "\e[3~" [delete])
+(define-key function-key-map "\e[2~" [insert])
+
+(global-set-key (kbd "\e[1;5D") 'backward-word)
+(global-set-key (kbd "\e[1;5C") 'forward-word)
+(global-set-key (kbd "\e[1;5A") 'backward-paragraph)
+(global-set-key (kbd "\e[1;5B") 'forward-paragraph)
+(global-set-key (kbd "<delete>") 'delete-char)
+(global-set-key (kbd "\e[3;5~") 'kill-word)
+
+
 ;; COLORS
 
 (defun configure-frame ()
@@ -605,25 +623,6 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(compilation-error ((t (:inherit font-lock-warning-face :foreground "dark orchid"))))
- '(font-lock-comment-delimiter-face ((t (:inherit default :foreground "red4"))))
- '(font-lock-comment-face ((t (:foreground "red4"))))
- '(font-lock-function-name-face ((t (:foreground "DodgerBlue1"))))
- '(region ((t (:background "DeepSkyBlue4")))))
+ )
 
 (prefer-coding-system 'utf-8)
-
-; Add cmake listfile names to the mode list.
-(setq auto-mode-alist
-	  (append
-	   '(("CMakeLists\\.txt\\'" . cmake-mode))
-	   '(("\\.cmake\\'" . cmake-mode))
-	   auto-mode-alist))
-
-(autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
-
-;Colors
-(require 'color-theme)
-;(load "~/.emacs.conf/color-theme-tango.el")
-;(load "~/.emacs.conf/tomorrow-night-paradise-theme.el")
-;(color-theme-tango))
