@@ -21,6 +21,24 @@ SAVEHIST=50000
 HISTFILE=~/.history
 
 ############################################################
+#                      MISC / PERSO                        #
+############################################################
+export EDITOR='emacs'
+export LOGCHECK='60'
+export MAILCHECK=0
+export PAGER='most'
+export WATCH='all'
+export SHELL='/bin/zsh'
+export TERM='xterm-256color'
+export LTERM='lxterminal'
+export SVN_EDITOR='emacs -nw'
+autoload -U tetris
+zle -N tetris
+xset b off &> /dev/null
+xset r rate 300 100 &> /dev/null
+umask 066
+
+############################################################
 #                        COMPLETION                        #
 ############################################################
 zstyle ':completion:*' verbose yes
@@ -85,6 +103,7 @@ bindkey ';5A' history-search-backward
 bindkey ';5B' history-search-forward
 bindkey ';5C' emacs-forward-word
 bindkey ';5D' emacs-backward-word
+bindkey '^H' backward-kill-word
 ############################################################
 #                         ALIASES                          #
 ############################################################
@@ -97,21 +116,18 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias sed='sed -E'
 alias fsed='sed -E -f'
-alias cp='cp -i'
 alias mv='mv -i'
 alias g='gcc -W -Wall -ansi -Werror -pedantic -g -ggdb -o'
 alias mm='make clean;cls;make'
 alias mmm='mm debug'
 alias mc='make clean'
 alias mcc='make cleanall'
-alias x='xterm /bin/zsh &'
-alias cbzip='tar cvjf'
-alias xbzip='tar xvjf'
-alias cgzip='tar cvzf'
-alias xgzip='tar xvzf'
+alias x='$LTERM &'
+alias t='tar -xf'
+alias tv='tar -xvf'
 alias du='du -h'
 alias df='df -h'
-alias d='df -h'
+alias dt='dmesg | tail -n 10'
 alias 007='kill -9 -1'
 alias kl='kill -9 -1'
 alias s='cd ../'
@@ -131,24 +147,68 @@ alias -s h=e
 
 
 ############################################################
-#                      MISC / PERSO                        #
+#                        FUNCTIONS                         #
 ############################################################
-export EDITOR='emacs'
-export LOGCHECK='60'
-export MAILCHECK=0
-export PAGER='most'
-export WATCH='all'
-export SHELL='/bin/zsh'
-export SVN_EDITOR='emacs -nw'
-autoload -U tetris
-zle -N tetris
-xset b off &> /dev/null
-xset r rate 300 100 &> /dev/null
-umask 066
 
 function e
 {
     emacs $1 &
+}
+
+function n
+{
+    echo "/*------------------------------------------------------------------------------"
+    echo "**-- Copyright (c) ReFLEX CES AAAA"
+    echo     "**------------------------------------------------------------------------------"
+    echo     "**-- Project     : "
+    echo     "**------------------------------------------------------------------------------"
+    echo  "**-- Author      : "
+    echo "-- Title       : "
+    echo "-- File        : "
+    echo "-- Application : "
+    echo "-- Created     : "
+    echo "-- Last update : "
+    echo "-- Version     : "
+    echo "-- Dependency  : "
+    echo "**------------------------------------------------------------------------------"
+    echo "-- Description : "
+    echo "-- Limitations : "
+    echo "**------------------------------------------------------------------------------"
+    echo "--  Rev.   |    Date    | Author | Description"
+    echo "**------------------------------------------------------------------------------"
+    echo "--         |            |        | "
+    echo "**------------------------------------------------------------------------------"
+
+}
+
+function se
+{
+    sudo emacs $1 &
+}
+
+function ownit
+{
+    sudo chown -R $USER:$USER $1 && sudo chmod -R 755 $1
+}
+
+function dtn
+{
+    dmesg | tail -n $1
+}
+
+function srch
+{
+    grep -Ri "$@" . 2> /dev/null
+}
+
+function showcache
+{
+    for i in $(apt-cache --installed search $1 | awk '{print $1}')
+    do
+	printf "$i\t"
+	apt-cache show $i | grep Version | awk '{print $2}'
+    done
+
 }
 
 ############################################################

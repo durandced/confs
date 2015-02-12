@@ -1,4 +1,4 @@
-
+;;
 ;; emacs configuration
 ;;
 ;; Made by mefyl <mefyl@lrde.epita.fr>
@@ -31,6 +31,9 @@
 (require 'my-layout)
 (require 'my-lisp-mode)
 (require 'my-python-mode)
+(require 'dts-mode)
+(require 'diff-mode-)
+;;(require 'diff+20)
 
 (defconst has-gnuserv
   (fboundp 'gnuserv-start)
@@ -293,6 +296,8 @@
 (when has-ido
   (global-set-key [(control b)] 'ido-switch-buffer))
 
+
+
 ;; BINDINGS :: isearch
 (global-set-key [(control f)] 'isearch-forward-regexp)  ; search regexp
 (global-set-key [(control r)] 'query-replace-regexp)    ; replace regexp
@@ -399,6 +404,7 @@
 
 ;; BINDINGS :: misc
 
+(global-set-key [(control q)]  'beginning-of-line)
 (global-set-key [(meta =)]
                 'count-lines-region)
 (if (display-graphic-p)
@@ -423,24 +429,6 @@
 (global-set-key [(control delete)]
                 'kill-word)                             ; kill word forward
 (global-set-key [(meta ~)] 'ruby-command)               ; run ruby command
-
-;; -nw keybindings
-(define-key function-key-map "\e[A" [up])
-(define-key function-key-map "\e[B" [down])
-(define-key function-key-map "\e[C" [right])
-(define-key function-key-map "\e[D" [left])
-(define-key function-key-map "\e[6~" [next])
-(define-key function-key-map "\e[5~" [prior])
-(define-key function-key-map "\e[3~" [delete])
-(define-key function-key-map "\e[2~" [insert])
-
-(global-set-key (kbd "\e[1;5D") 'backward-word)
-(global-set-key (kbd "\e[1;5C") 'forward-word)
-(global-set-key (kbd "\e[1;5A") 'backward-paragraph)
-(global-set-key (kbd "\e[1;5B") 'forward-paragraph)
-(global-set-key (kbd "<delete>") 'delete-char)
-(global-set-key (kbd "\e[3;5~") 'kill-word)
-
 
 ;; COLORS
 
@@ -623,6 +611,17 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face)) (((class color) (min-colors 16)) nil)))
+ '(font-lock-comment-face ((t (:foreground "red4"))))
+ '(font-lock-function-name-face ((t (:foreground "DeepSkyBlue3")))))
 
 (prefer-coding-system 'utf-8)
+
+; Add cmake listfile names to the mode list.
+(setq auto-mode-alist
+	  (append
+	   '(("CMakeLists\\.txt\\'" . cmake-mode))
+	   '(("\\.cmake\\'" . cmake-mode))
+	   auto-mode-alist))
+
+(autoload 'cmake-mode "~/CMake/Auxiliary/cmake-mode.el" t)
