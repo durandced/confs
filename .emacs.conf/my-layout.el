@@ -1,6 +1,5 @@
-
 ;; Looks
-(set-default-font "DejaVuSansMono-10")
+(set-frame-font "DejaVuSansMono-10")
 
 ;; COLORS
 
@@ -82,5 +81,83 @@
  '(font-lock-comment-delimiter-face ((default (:inherit font-lock-comment-face)) (((class color) (min-colors 16)) nil)))
  '(font-lock-comment-face ((t (:foreground "red3"))))
  '(font-lock-function-name-face ((t (:foreground "DeepSkyBlue3")))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package: volatile-highlights          ;;
+;;                                       ;;
+;; GROUP: Editing -> Volatile Highlights ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
+;; Package: smartparens
+;;(require 'smartparens-config)
+;;(setq sp-base-key-bindings 'paredit)
+;;(setq sp-autoskip-closing-pair 'always)
+;;(setq sp-hybrid-kill-entire-symbol nil)
+;;(sp-use-paredit-bindings)
+(use-package smartparens-config
+  :ensure smartparens
+  :config (progn (show-smartparens-global-mode t))
+  )
+
+(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package: undo-tree                  ;;
+;;                                     ;;
+;; GROUP: Editing -> Undo -> Undo Tree ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package undo-tree)
+(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; PACKAGE: company              ;;
+;;                               ;;
+;; GROUP: Convenience -> Company ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'after-init-hook 'global-company-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package: expand-region                       ;;
+;;                                              ;;
+;; GROUP: Convenience -> Abbreviation -> Expand ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'expand-region)
+(global-set-key (kbd "M-m") 'er/expand-region)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package: expand-region                        ;;
+;;                                               ;;
+;; GROUP: Convenience -> Abbreviation -> ibuffer ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'ibuffer-hook
+          (lambda ()
+            (ibuffer-vc-set-filter-groups-by-vc-root)
+            (unless (eq ibuffer-sorting-mode 'alphabetic)
+              (ibuffer-do-sort-by-alphabetic))))
+
+(setq ibuffer-formats
+      '((mark modified read-only vc-status-mini " "
+              (name 18 18 :left :elide)
+              " "
+              (size 9 -1 :right)
+              " "
+              (mode 16 16 :left :elide)
+              " "
+              (vc-status 16 16 :left)
+              " "
+              filename-and-process)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; PACKAGES: projectile             ;;
+;;                                  ;;
+;; GROUP: Convenience -> Projectile ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;(projectile-global-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; PACKAGE: diff-hl                             ;;
+;;                                              ;;
+;; GROUP: Programming -> Tools -> Vc -> Diff Hl ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-diff-hl-mode)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 (provide 'my-layout)

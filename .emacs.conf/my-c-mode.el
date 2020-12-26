@@ -197,6 +197,6 @@
     'my-gdb-kill)
 )
 
-(add-hook 'c++-mode-hook 'c-mode-setup)
+(add-hook 'c++-mode-hook 'c-mode-setup 'smartparens-mode)
 
 (provide 'my-c-mode)
