@@ -3,6 +3,25 @@
   (require 'my-elisp)
 
   ;; ------------ ;;
+  ;; Coding Style ;;
+  ;; ------------ ;;
+
+  (add-to-list 'c-style-alist
+               '("epita"
+               (c-basic-offset . 2)
+               (c-comment-only-line-offset . 0)
+               (c-hanging-braces-alist     . ((substatement-open before after)))
+               (c-offsets-alist . ((topmost-intro        . 0)
+                                   (substatement         . +)
+                                   (substatement-open    . 0)
+                                   (case-label           . +)
+                                   (access-label         . -)
+                                   (inclass              . ++)
+                                   (inline-open          . 0)))))
+
+  (setq c-default-style "epita")
+
+  ;; ------------ ;;
   ;; Preprocessor ;;
   ;; ------------ ;;
 

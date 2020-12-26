@@ -20,7 +20,10 @@
     [(meta q)]
     'my-rebox-comment)
 
-
+  (define-key
+    lisp-mode-shared-map
+    [(control c) (control c)]
+    'comment-region)
   )
 
 (add-hook 'lisp-mode-hook 'my-lisp-mode-setup)
